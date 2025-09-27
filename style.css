@@ -1,0 +1,78 @@
+body {
+    font-family: 'Cairo', Arial, sans-serif;
+    background: #f2f6fa;
+    margin: 30px;
+    direction: rtl;
+}
+form {
+    background: #fff;
+    padding: 24px 28px 35px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    max-width: 1200px;
+    margin: auto;
+}
+h2, h3 {
+    margin-top: 12px;
+    color: #145179;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    padding: 9px 13px;
+    border: 1px solid #ddd;
+}
+input[type="number"], select, textarea, input[type="text"] {
+    padding: 5px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 16px;
+}
+textarea {
+    width: 92%;
+    min-height: 32px;
+    margin-bottom: 8px;
+}
+button {
+    margin: 7px 7px 7px 0;
+    padding: 9px 19px;
+    background: #145179;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-size: 17px;
+    cursor: pointer;
+}
+button:hover {
+    background: #2178ae;
+}
+.idea {
+    background: #ffeee7;
+    padding: 10px;
+    margin: 13px 0 20px 0;
+    border-radius: 6px;
+    color: #bc5815;
+    border-right: 4px solid #eea670;
+}
+.open-space {
+    background: #e7fdff;
+    padding: 9px;
+    margin: 10px 0;
+    border-radius: 6px;
+    color: #187383;
+    border-right: 4px solid #8cd1db;
+}
+@media print {
+    button, .action-btns, .idea, .open-space {
+        display: none !important;
+    }
+    body {
+        background: #fff;
+    }
+    form {
+        box-shadow: none;
+    }
+}

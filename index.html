@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>استمارة تقييم أداء المعلم</title>
+  <style>
+    body { font-family: 'Cairo', Arial, sans-serif; background: #f2f6fa; margin: 30px; direction: rtl; }
+    .header { background: linear-gradient(90deg, #145179 60%, #3ec7a7 100%); color: #fff; padding: 18px 10px 12px; border-radius: 10px 10px 0 0; margin: 0 auto 18px; max-width:1200px; text-align:center; }
+    .header .changeable { font-weight:bold; cursor:pointer; margin:0 8px; font-size:1.13em; }
+    form { background: #fff; padding: 22px 26px 34px; border-radius: 0 0 10px 10px; box-shadow: 0 0 10px #ccc; max-width: 1200px; margin: auto; }
+    h2, h3 { margin-top: 10px; color: #145179; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 18px; }
+    th, td { padding: 8px 10px; border: 1px solid #ddd; }
+    input[type="number"], select, textarea, input[type="text"] { padding: 5px; border: 1px solid #bbb; border-radius: 5px; font-size: 16px; }
+    textarea { width: 92%; min-height: 32px; margin-bottom: 8px; }
+    button { margin: 7px 7px 7px 0; padding: 8px 18px; background: #145179; color: #fff; border: none; border-radius: 7px; font-size: 17px; cursor: pointer; }
+    button:hover { background: #2178ae; }
+    .open-space { background: #e7fdff; padding: 7px; margin:10px 0; border-radius: 6px; color: #187383; border-right:4px solid #8cd1db; }
+    .slider-container {background: #f7fcff; padding: 10px; border-radius: 8px; margin:18px 0;}
+    .slider-label { font-weight:bold; color:#145179;}
+    .slider-value {display: inline-block;background: #3ec7a7;color: #fff;width: 39px;border-radius: 8px;margin-right: 10px;text-align:center; font-size:18px;}
+    input[type="range"] { width: 72%; accent-color: #3ec7a7;}
+    .progress-bg {width:98%;height:21px;background:#e7f6fc;border-radius:12px;margin:7px auto;box-shadow: 0 2px 7px #cbe7ee;}
+    .progress-bar {height:21px;border-radius:12px;background:linear-gradient(90deg,#fa2b2b,#ffe22b 60%,#18c168);width:100%;text-align:center;color:#065729;font-weight:bold;line-height:22px;transition:width .4s;}
+    .avg-bar { font-size: 16px; padding:8px 15px; border-radius:9px; margin:10px auto 20px; width:fit-content; font-weight:bold;}
+    .avg-bar.good { background:#e6fbec; color:#047355;}
+    .avg-bar.med { background:#fffacc; color:#a48a0f;}
+    .avg-bar.low { background:#fbe6e6; color:#a73c0d;}
+    .creative-hint {font-size:14px;color:#087855;margin-bottom:7px;}
+    @media print { button, .action-btns, .open-space, .slider-container, .header .changeable { display: none !important; } body { background: #fff; } form { box-shadow: none; } }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span>وزارة التعليم</span>
+    <span class="changeable" id="regionName">إدارة التعليم بالمنطقة الشرقية</span>
+    <span class="changeable" id="schoolName">مدرسة القادسية المتوسطة</span>
+    <div style="color:#d7f7ed;font-size:.95em;margin:7px 0 -7px 0;">(انقر لتغيير المنطقة أو المدرسة مباشرة)</div>
+  </div>
+  <form id="evaluationForm">
+    <div class="slider-container">
+      <span class="slider-label">درجة التقييم العام:</span>
+      <span id="scoreValue" class="slider-value">5</span> / 5
+      <input type="range" id="scoreRange" min="1" max="5" value="5" step="1">
+      <div class="progress-bg">
+        <div id="progressBar" class="progress-bar">ممتاز</div>
+      </div>
+      <div class="creative-hint">تتغير شدة اللون ووصف الدرجة تلقائيًا حسب التقييم المختار!</div>
+    </div>
+    <h2>استمارة تقييم أداء المعلم</h2>
+    <label>اسم المعلم: <input type="text" name="teacherName" required></label>
+    <label>رقم الزيارة:
+      <select name="visitNumber">
+        <option>الزيارة الأولى</option>
+        <option>الزيارة الثانية</option>
+        <option>الزيارة الثالثة</option>
+      </select>
+    </label>
+
+   <h3>المجالات الستة وعناصرها (١-٥)</h3>
+    <table id="scoresTable">
+      <tr>
+        <th>المجال</th><th>العنصر</th><th>شرح</th><th>التقييم</th>
+      </tr>
+      <!-- إعداد وتنفيذ خطة للتعلم -->
+      <tr><td rowspan="4">إعداد وتنفيذ خطة للتعلّم</td><td>تخطيط محكم</td>
+        <td>تحويل المنهج إلى خطة دروس قابلة للقياس</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>استراتيجيات مبتكرة</td><td>أساليب تدريس حديثة تعزز الإبداع وحل المشكلات</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>التزام زمني منظم</td><td>تنظيم زمن التعلم بما يلبي احتياجات الطلاب</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>تقويم هادف</td><td>أدوات تقييم مرتبطة بالأهداف وتحسين الأداء</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <!-- التنوع في استراتيجيات التدريس -->
+      <tr><td rowspan="4">استراتيجيات التدريس</td><td>تنويع الأساليب</td>
+        <td>اختيار طرق تدريس متنوعة تناسب الأهداف</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>مراعاة الفروق</td><td>تكييف الأنشطة بحسب سرعات وخبرات الطلاب</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>دمج التعليم المباشر والرقمي</td><td>تكامل الوسائل الحديثة مع التعليم الصفي</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>تحفيز التفاعل</td><td>استخدام الحوار وأسئلة التفكير والمشاركة</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <!-- إدارة الفصل -->
+      <tr><td rowspan="4">إدارة الفصل</td><td>تنظيم البيئة</td>
+        <td>تهيئة مكان آمن ومحفز للتعلم</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>ضبط السلوك</td><td>تطبيق قواعد واضحة وفاعلة للانضباط</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>تعزيز المشاركة</td><td>مشاركة الطلاب بفاعلية بالأنشطة</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>توظيف الوقت</td><td>استثمار زمن الحصة بكفاءة وانضباط</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <!-- توظيف التقنية -->
+      <tr><td rowspan="4">توظيف التقنية</td><td>أدوات رقمية</td>
+        <td>استخدام منصات وموارد تفاعلية مناسبة</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>دمج التقنية</td><td>دعم الأنشطة التعليمية بوسائل رقمية</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>دعم الفروق</td><td>تخصيص التعليم باستخدام التقنية</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>تعزيز النواتج</td><td>تحسين نتائج الطلاب رقمياً</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <!-- البيئة التعليمية -->
+      <tr><td rowspan="4">البيئة التعليمية</td><td>تهيئة مكان آمن</td>
+        <td>بيئة صفية مطمئنة</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>موارد تعلم</td><td>توفير مواد وأنشطة تسهّل الفهم</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>علاقات إيجابية</td><td>تواصل فعّال واحترام متبادل</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>دافعية المتعلمين</td><td>تحفيز الطلاب للتميز عبر الإنجازات</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <!-- أساليب وأدوات التقويم -->
+      <tr><td rowspan="4">أساليب وأدوات التقويم</td><td>تنويع الأدوات</td>
+        <td>اختبارات تحريرية وشفهية وعملية ورقمية</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>مراعاة الفروق</td><td>مهام تقييم تراعي المستويات المتعددة</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>التقويم البنائي والنهائي</td><td>متابعة التقدّم واختبارات معيارية</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+      <tr><td>استثمار النتائج</td><td>تحليل النتائج لتحسين التدريس</td><td><input type="number" min="1" max="5" class="score"></td></tr>
+    </table>
+    <div id="avgResult" class="avg-bar good">المتوسط: 0 / 5</div>
+
+    <div class="open-space">
+      <strong>إنجازات إبداعية / أفكار غير مكررة:</strong>
+      <textarea name="creativeAchieve" placeholder="أي مشروع، فكرة، أو نشاط تعليمي جديد تم تطبيقه في الصف"></textarea>
+    </div>
+
+    <h3>الأدوات المساندة</h3>
+    <table>
+      <tr><th>الأداة</th><th>الشواهد</th><th>التفعيل</th></tr>
+      <tr><td>تحسين نواتج التعلم</td><td>رفع تحصيل الطلاب بناء على أدلة</td>
+        <td><select><option>مُفعل</option><option>إلى حد ما</option><option>غير مُفعل</option></select></td></tr>
+      <tr><td>تفعيل منصة مدرستي</td><td>متابعة الواجبات والتواصل</td>
+        <td><select><option>مُفعل</option><option>إلى حد ما</option><option>غير مُفعل</option></select></td></tr>
+      <tr><td>شراكة مجتمع مهني</td><td>برامج تدريبية وتطوير الأداء</td>
+        <td><select><option>مُفعل</option><option>إلى حد ما</option><option>غير مُفعل</option></select></td></tr>
+      <tr><td>تواصل أولياء الأمور</td><td>دعم أكاديمي وسلوكي</td>
+        <td><select><option>مُفعل</option><option>إلى حد ما</option><option>غير مُفعل</option></select></td></tr>
+      <tr><td>تحليل نتائج التعلم</td><td>اتخاذ قرارات علاجية</td>
+        <td><select><option>مُفعل</option><option>إلى حد ما</option><option>غير مُفعل</option></select></td></tr>
+      <tr><td>توظيف كتاب الطالب</td><td>ربط الكتاب بالأنشطة</td>
+        <td><select><option>مُفعل</option><option>إلى حد ما</option><option>غير مُفعل</option></select></td></tr>
+    </table>
+
+    <label>جوانب التميز:<br><textarea name="strengths"></textarea></label>
+    <label>احتياجات التنمية المهنية:<br><textarea name="needs"></textarea></label>
+    <h3>الاعتماد</h3>
+    <label>اسم المعلم:<input type="text" name="teacherConfirm"></label>
+    <label>توقيع المعلم:<input type="text" name="teacherSign"></label>
+    <label>اسم مدير المدرسة: يوسف بن أحمد الزقعان</label>
+    <label>توقيع المدير:<input type="text" name="managerSign"></label>
+    <div class="action-btns">
+      <button type="button" onclick="window.print()">طباعة</button>
+      <button type="button" id="whatsappBtn">إرسال التقييم بالواتساب</button>
+      <button type="submit">حفظ PDF</button>
+    </div>
+    <p style="text-align:center;margin-top:18px;color:#888;">
+      تنفيذ وتصميم مصطفى بن أحمد بوحسن
+    </p>
+  </form>
+  <script>
+    // ترويسة مرنة قابلة للتغيير
+    document.getElementById("regionName").onclick=function(){
+      let t=prompt("اكتب اسم المنطقة:",this.textContent);if(t)this.textContent=t;
+    };
+    document.getElementById("schoolName").onclick=function(){
+      let t=prompt("اكتب اسم المدرسة:",this.textContent);if(t)this.textContent=t;
+    };
+    // شريط التقييم العام متفاعل
+    let range = document.getElementById('scoreRange'), valueSpan = document.getElementById('scoreValue'), bar = document.getElementById('progressBar');
+    range.oninput = function() {
+      valueSpan.textContent = this.value;
+      let percent = this.value*20;
+      bar.style.width = percent + "%";
+      if(this.value==5){bar.textContent='ممتاز';bar.style.background="#18c168";}
+      else if(this.value==4){bar.textContent='جيد جدًا';bar.style.background="#73ca4f";}
+      else if(this.value==3){bar.textContent='جيد';bar.style.background="#ffe22b";}
+      else if(this.value==2){bar.textContent='مقبول';bar.style.background="#f6b02e";}
+      else{bar.textContent='ضعيف';bar.style.background="#fa2b2b";}
+    };
+
+    // حساب متوسط الدرجات
+    function updateAverage() {
+      let scores = Array.from(document.querySelectorAll('.score')).map(x => Number(x.value)||0).filter(x=>x>0);
+      let avgBar = document.getElementById("avgResult");
+      if (scores.length) {
+        let avg = (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(2);
+        avgBar.textContent = "المتوسط: "+avg+" / 5";
+        if (avg >= 4.5) { avgBar.className="avg-bar good"; avgBar.textContent += " (ممتاز) "; }
+        else if (avg >= 3) { avgBar.className="avg-bar med"; avgBar.textContent += " (متوسط) "; }
+        else { avgBar.className="avg-bar low"; avgBar.textContent += " (يحتاج دعم) "; }
+      } else {
+        avgBar.textContent = "المتوسط: 0 / 5";
+        avgBar.className="avg-bar low";
+      }
+    }
+    document.querySelectorAll('.score').forEach(el=>{
+      el.oninput = updateAverage;
+    });
+
+    // واتساب متكامل
+    document.getElementById('whatsappBtn').onclick = function () {
+      let form = document.getElementById('evaluationForm');
+      let region = document.getElementById("regionName").textContent;
+      let school = document.getElementById("schoolName").textContent;
+      let teacher = form.teacherName.value;
+      let visit = form.visitNumber.value;
+      let strengths = form.strengths.value;
+      let needs = form.needs.value;
+      let creativeAchieve = form.creativeAchieve.value;
+      let avg = document.getElementById('avgResult').textContent;
+      let summary = وزارة التعليم\n${region}\n${school}\nتقييم معلم: ${teacher}\nالزيارة: ${visit}\n${avg}\nجوانب التميز: ${strengths}\nإنجازات إبداعية: ${creativeAchieve}\nاحتياجات التنمية: ${needs};
+      let whatsappURL = https://wa.me/?text=${encodeURIComponent(summary)};
+      window.open(whatsappURL, '_blank');
+    };
+    // طباعة
+    document.getElementById('evaluationForm').onsubmit = function(e){
+      e.preventDefault();
+      window.print();
+    };
+  </script>
+</body>
+</html>
